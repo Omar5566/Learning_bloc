@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:learning_bloc/AdMob/temptest.dart';
 import 'counter_cubit.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   runApp(MyApp());
 }
 
@@ -38,6 +42,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push<void>(
+                  context,
+                  MaterialPageRoute<void>(
+                    // ignore: prefer_const_constructors
+                    builder: (BuildContext context) => Admob(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.add_alarm))
+        ],
         title: Text(widget.title),
       ),
       body: Center(
@@ -54,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Scaffold.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Incremented!'),
-                      duration: Duration(milliseconds: 300),
+                      duration: Duration(milliseconds: 100),
                     ),
                   );
                 } else if (state.wasIncremented == false) {
@@ -62,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Scaffold.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Decremented!'),
-                      duration: Duration(milliseconds: 300),
+                      duration: Duration(milliseconds: 100),
                     ),
                   );
                 }
@@ -78,10 +95,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     'YAAAY ' + state.counterValue.toString(),
                     style: Theme.of(context).textTheme.headline4,
                   );
-                } else if (state.counterValue == 5) {
+                } else if (state.counterValue % 5 == 0) {
                   return Text(
-                    'HMM, NUMBER 5',
-                    style: Theme.of(context).textTheme.headline4,
+                    'HMM, NUMBER DIVIDED BY 5',
+                    style: Theme.of(context).textTheme.headline6,
                   );
                 } else {
                   return Text(
@@ -109,8 +126,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 FloatingActionButton(
                   heroTag: Text('${widget.title} #2'),
                   onPressed: () {
-                     BlocProvider.of<CounterCubit>(context).increment();
-                   // context.bloc<CounterCubit>().increment();
+                    BlocProvider.of<CounterCubit>(context).increment();
+                    // context.bloc<CounterCubit>().increment();
                   },
                   tooltip: 'Increment',
                   child: const Icon(Icons.add),
