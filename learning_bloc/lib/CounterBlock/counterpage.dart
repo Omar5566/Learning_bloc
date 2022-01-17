@@ -1,64 +1,40 @@
+// ignore_for_file: camel_case_types, prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:learning_bloc/AdMob/temptest.dart';
-import 'CounterBlock/counter_cubit.dart';
-import 'CounterBlock/counterpage.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
-  runApp(MyApp());
+import 'counter_cubit.dart';
+
+class counterpage extends StatefulWidget {
+  // ignore: prefer_const_constructors_in_immutables
+  counterpage({Key? key}) : super(key: key);
+
+  @override
+  _counterpageState createState() => _counterpageState();
 }
 
-// ignore: use_key_in_widget_constructors
-class MyApp extends StatelessWidget {
+class _counterpageState extends State<counterpage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: BlocProvider<CounterCubit>(
+    return  BlocProvider<CounterCubit>(
         create: (context) => CounterCubit(),
-        child: const MyHomePage(title: 'Demo'),
-      ),
+        child: Count(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+class Count extends StatefulWidget {
+  // ignore: prefer_const_constructors_in_immutables
+  Count({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _CountState createState() => _CountState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _CountState extends State<Count> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push<void>(
-                  context,
-                  MaterialPageRoute<void>(
-                    // ignore: prefer_const_constructors
-                    builder: (BuildContext context) => counterpage(),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.add_alarm))
-        ],
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -117,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 FloatingActionButton(
-                  heroTag: Text(widget.title),
+                  heroTag: Text("-"),
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).decrement();
                     // context.bloc<CounterCubit>().decrement();
@@ -126,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Icon(Icons.remove),
                 ),
                 FloatingActionButton(
-                  heroTag: Text('${widget.title} #2'),
+                  heroTag: Text('${"+"} #2'),
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).increment();
                     // context.bloc<CounterCubit>().increment();
