@@ -55,6 +55,7 @@ class _AdmobState extends State<Admob> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Stack(children: [
         Align(alignment: Alignment.center, child: AdWidget(ad: _bannerAd)),
         Align(
