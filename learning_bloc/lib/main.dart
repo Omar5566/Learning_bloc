@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:learning_bloc/AdMob/temptest.dart';
+import 'package:learning_bloc/home_page.dart';
 import 'CounterBlock/counter_cubit.dart';
-import 'CounterBlock/counterpage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute<void>(
                     // ignore: prefer_const_constructors
-                    builder: (BuildContext context) => counterpage(),
+                    builder: (BuildContext context) => TextFieldPage(),
                   ),
                 );
               },
